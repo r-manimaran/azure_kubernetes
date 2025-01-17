@@ -1,0 +1,15 @@
+# environments/development/kustomization.yml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base/webapi
+  - ../../base/secrets
+  
+configMapGenerator:
+  - name: env-config
+    files:
+      - config/env-vars.yml
+
+patchesStrategicMerge:
+  - config/env-vars.yml

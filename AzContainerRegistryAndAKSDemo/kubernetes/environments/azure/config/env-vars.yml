@@ -1,0 +1,8 @@
+# environments/local/config/env-vars.yml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: webapi-config
+data:
+  ASPNETCORE_ENVIRONMENT: "Development"
+  ASPNETCORE_URLS: "http://+:80"

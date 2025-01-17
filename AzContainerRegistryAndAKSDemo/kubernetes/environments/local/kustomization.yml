@@ -1,0 +1,16 @@
+# environments/development/kustomization.yml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base/webapi
+  - ../../base/secrets
+
+configMapGenerator:
+- name: webapi-config
+  behavior: merge
+  literals:
+  - ASPNETCORE_ENVIRONMENT=Development
+  - ASPNETCORE_URLS=http://+:80
+
+
