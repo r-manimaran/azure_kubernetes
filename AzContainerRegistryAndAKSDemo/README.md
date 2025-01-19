@@ -60,9 +60,9 @@ docker push maranacr.azurecr.io/webapi:latest
 ```
 
 
-![alt text](image.png)
+![alt text](images/image.png)
 
-![alt text](image-3.png)
+![alt text](images/image-3.png)
 
 4. Check and list the repositories after push
  - using Azure CLI
@@ -78,7 +78,7 @@ az acr repository show-tags --name maranacr --repository webapi --output table
 az acr repository show --name maranacr --repository webapi
 
 ```
-![alt text](image-1.png)
+![alt text](images/image-1.png)
 
 - Using Docker commands
 ```bash
@@ -88,7 +88,7 @@ docker images maranacr.azurecr.io/*
 # List specific repository images
 docker images maranacr.azurecr.io/webapi
 ```
-![alt text](image-2.png)
+![alt text](images/image-2.png)
 
 - All the above steps are done in the single script file (build-and-push.sh)
 
@@ -144,7 +144,7 @@ chmod +x create_acr_secret.sh
 
 ./create_acr_secret.sh
 ```
-![alt text](image-4.png)
+![alt text](images/image-4.png)
 
 - To check the created secrets, we can run the below scripts
 ```bash
@@ -157,21 +157,21 @@ kubectl describe secret acr-secret
 # to delete the existing secret
 kubectl delete secret acr-secret
 ```
-![alt text](image-5.png)
+![alt text](images/image-5.png)
 
 ### Create the Connection string secret
 ```bash
 kubectl create secret generic azure-sql-secret \
  --from-literal=ConnectionStrings__AzureSql="Server=tcp:maranazsql.database.windows.net,1433;Initial Catalog=Demodb;Persist Security Info=False;User ID=demoadmin;Password=passwordhere;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
  ```
- ![alt text](image-6.png)
+ ![alt text](images/image-6.png)
 
  - Update the deployment.yml file to pass the connection string
 
 
- ![alt text](image-7.png)
+ ![alt text](images/image-7.png)
 
-![alt text](image-8.png)
+![alt text](images/image-8.png)
 
 - Scale the replicas up and down
 
@@ -186,18 +186,18 @@ Tried the below command
 ```bash
 kubectl scale deployment webapi-deployment --replicas=3
 ```
-![alt text](image-9.png)
+![alt text](images/image-9.png)
 
 Tried to scale down using 
 ```bash
 kubectl scale deployment webapi-deployment --replicas=2
 ```
-![alt text](image-10.png)
+![alt text](images/image-10.png)
 
 ```bash
 kubectl scale deployment webapi-deployment --replicas=0
 ```
-![alt text](image-11.png)
+![alt text](images/image-11.png)
  
 
- ![alt text](image-12.png)
+ ![alt text](images/image-12.png)
