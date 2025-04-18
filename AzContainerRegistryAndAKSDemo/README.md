@@ -1,3 +1,37 @@
+# Azure Container Registry and AKS Demo using .Net Web API
+
+## Overview
+This project demonstrates the integration between Azure Container Registry (ACR) and Azure Kubernetes Service (AKS), showcasing containerized application deployment workflows. It includes comprehensive guides for container management, registry operations, and Kubernetes deployments.
+
+## Project Components
+- Web API application containerized with Docker
+- Azure Container Registry (ACR) for image storage
+- Kubernetes deployment configuration
+- Security implementations for container registry access
+- Database connection configuration with Kubernetes secret
+
+## Features
+- Docker image building and versioning
+- Secure ACR authentication methods
+- Kubernetes deployment management
+- Scale operations for container instances
+- Secret management for sensitive information
+- Database connection string management
+
+## Prerequisites
+- Azure CLI installed
+- Docker Desktop
+- Kubernetes CLI (kubectl)
+- Access to Azure Container Registry
+- Git Bash (for running shell scripts)
+
+### Quick Start
+1. Build and tag Docker images
+2. Authenticate with Azure Container Registry
+3. Push images to ACR
+4. Create necessary Kubernetes secrets
+5. Deploy application using deployment.yml
+
 ## Build and Create docker Image
 ```bash
 # Build the image with version tag
@@ -201,3 +235,6 @@ kubectl scale deployment webapi-deployment --replicas=0
  
 
  ![alt text](images/image-12.png)
+
+ ## Create Azure Kubernetes Service (AKS) in Azure
+ 
