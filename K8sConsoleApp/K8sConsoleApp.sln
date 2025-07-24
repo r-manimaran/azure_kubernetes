@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36221.1 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileProcessingApp", "ConsoleApp\FileProcessingApp.csproj", "{C43425C9-967D-4EDB-80C9-3BD283D977E4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
+	ProjectSection(SolutionItems) = preProject
+		Docker-Componse.yml = Docker-Componse.yml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileIngesterBackgroundService", "FileIngesterBackgroundService\FileIngesterBackgroundService.csproj", "{55725AE1-64F9-474B-B43B-60591677B61E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C43425C9-967D-4EDB-80C9-3BD283D977E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C43425C9-967D-4EDB-80C9-3BD283D977E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C43425C9-967D-4EDB-80C9-3BD283D977E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C43425C9-967D-4EDB-80C9-3BD283D977E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55725AE1-64F9-474B-B43B-60591677B61E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55725AE1-64F9-474B-B43B-60591677B61E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55725AE1-64F9-474B-B43B-60591677B61E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55725AE1-64F9-474B-B43B-60591677B61E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5FE18814-0B19-4669-9381-DA5E493A88C8}
+	EndGlobalSection
+EndGlobal

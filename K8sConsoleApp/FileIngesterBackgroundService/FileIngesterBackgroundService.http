@@ -1,0 +1,6 @@
+@FileIngesterBackgroundService_HostAddress = http://localhost:5108
+
+GET {{FileIngesterBackgroundService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
