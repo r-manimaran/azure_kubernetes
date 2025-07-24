@@ -5,11 +5,29 @@ namespace FileIngesterBackgroundService.Services;
 public class BlobService
 {
     private readonly ILogger<BlobService> _logger;
-    private readonly BlobServiceClient _blobServiceClient;
+    private BlobServiceClient _blobServiceClient;
+    private readonly KeyVaultService _keyVaultService;
+    private readonly string _secretName;
+    
     public BlobService(string connectionString, ILogger<BlobService> logger)
     {
         _blobServiceClient = new BlobServiceClient(connectionString);
         _logger = logger;
+    }
+    
+    public BlobService(KeyVaultService keyVaultService, string secretName, ILogger<BlobService> logger)
+    {
+        _keyVaultService = keyVaultService;
+        _secretName = secretName;
+        _logger = logger;
+        RefreshConnection();
+    }
+    
+    private void RefreshConnection()
+    {
+        var connectionString = _keyVaultService.GetSecretAsync(_secretName).GetAwaiter().GetResult();
+        _blobServiceClient = new BlobServiceClient(connectionString);
+        _logger.LogInformation("Blob service connection refreshed");
     }
 
     public async Task EnsureContainerAsync(string containerName)
@@ -112,12 +130,29 @@ public class BlobService
                 await action();
                 return;
             }
+            catch (Exception ex) when (i < maxRetries - 1 && IsAuthenticationError(ex))
+            {
+                _logger.LogWarning("Authentication error, refreshing connection: {Error}", ex.Message);
+                if (_keyVaultService != null)
+                {
+                    _keyVaultService.InvalidateSecret(_secretName);
+                    RefreshConnection();
+                }
+                await Task.Delay(delayMilliseconds);
+            }
             catch (Exception ex) when (i < maxRetries - 1)
             {
                 await Task.Delay(delayMilliseconds);
             }
         }
         throw new InvalidOperationException("Operation failed after maximum retries.");
+    }
+    
+    private bool IsAuthenticationError(Exception ex)
+    {
+        return ex.Message.Contains("authentication", StringComparison.OrdinalIgnoreCase) ||
+               ex.Message.Contains("unauthorized", StringComparison.OrdinalIgnoreCase) ||
+               ex.Message.Contains("forbidden", StringComparison.OrdinalIgnoreCase);
     }
     private async Task<T> RetryAsync<T>(Func<Task<T>> action, int maxRetries = 3, int delayMilliseconds = 1000)
     {

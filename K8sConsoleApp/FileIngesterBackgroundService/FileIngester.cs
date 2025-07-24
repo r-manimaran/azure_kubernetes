@@ -51,7 +51,7 @@ public class FileIngester : BackgroundService
             {
                 _logger.LogError("{Exception}:", ex.ToString());
             }
-            Thread.Sleep(1000);
+            Thread.Sleep(millisecondsTimeout: 30000); // Every half min it will create a file in Azure Storage
         }
     }
     /// <summary>
