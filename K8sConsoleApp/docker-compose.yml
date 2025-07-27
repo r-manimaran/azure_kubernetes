@@ -1,0 +1,6 @@
+services:
+  fileprocessingapp:
+    image: ${DOCKER_REGISTRY-}fileprocessingapp
+    build:
+      context: .
+      dockerfile: ConsoleApp/Dockerfile
