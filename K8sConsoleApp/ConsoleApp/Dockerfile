@@ -14,7 +14,7 @@ RUN dotnet publish FileProcessingApp.csproj -c Release -o /app/publish \
     --no-restore
 
 # Runtime stage
-FROM mcr.microsoft.com/dotnet/runtime:9.0-alpine AS final
+FROM mcr.microsoft.com/dotnet/aspnet:9.0-alpine AS final
 WORKDIR /app
 
 # Create non-root user

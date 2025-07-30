@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using Serilog.Extensions.Hosting;
 using Serilog;
 
 class Program
@@ -26,7 +27,20 @@ class Program
                 var appSettingsSection = context.Configuration.GetSection("AppSettings");
                 services.Configure<AppSettings>(appSettingsSection);
 
-                var keyVaultUrl = appSettingsSection["KeyVaultUrl"]??Environment.GetEnvironmentVariable("KeyVaultUrl");
+                var keyVaultUrl = string.IsNullOrEmpty(appSettingsSection["KeyVaultUrl"])
+                                    ? Environment.GetEnvironmentVariable("KeyVaultUrl")
+                                    : appSettingsSection["KeyVaultUrl"];
+
+                // Debug logging
+                Console.WriteLine($"AppSettings KeyVaultUrl: '{appSettingsSection["KeyVaultUrl"]}'");
+                Console.WriteLine($"Environment KeyVaultUrl: '{Environment.GetEnvironmentVariable("KeyVaultUrl")}'");
+                Console.WriteLine($"Final KeyVaultUrl: '{keyVaultUrl}'");
+
+                if (string.IsNullOrEmpty(keyVaultUrl))
+                {
+                    throw new Exception("KeyVaultUrl is not set in appsettings.json or environment variables");
+                }
+
                 services.AddSingleton(new SecretClient(new Uri(keyVaultUrl), new DefaultAzureCredential()));
                 services.AddSingleton<SecretProviderService>();
 

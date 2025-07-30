@@ -58,3 +58,6 @@ README.md
 # Temporary files
 *.tmp
 *.temp
+
+# Environment files
+*.env
