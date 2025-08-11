@@ -101,6 +101,33 @@ Your application will now be running on `http://localhost:8082` and can securely
 
 ![alt text](image-2.png)
 
+## Build and push to docker hub
+To build and push your Docker image to Docker Hub:
+Make sure you are logged in to Docker Hub:
+
+```bash
+# build the image with a tag
+docker build -t your-dockerhub-username/fileprocessingapp .
+```
+![alt text](image-3.png)
+
+```bash
+# push the image to Docker Hub
+docker push your-dockerhub-username/fileprocessingapp
+```
+![Push to dockerhub](image-4.png)
+
+## Update your `docker-compose.yml` file to use the image from Docker Hub:
+```bash
+#up the containers
+docker-compose up -d
+```
+![docker-compose up](image-5.png)
+
+## Push image to Azure Container Registry(ACR)
+To push your Docker image to Azure Container Registry (ACR), follow these steps:
+ 
+
 ## Alternative: Using Azure Portal
 
 If you prefer using the Azure Portal instead of CLI:

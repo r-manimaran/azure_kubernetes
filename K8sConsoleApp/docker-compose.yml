@@ -1,6 +1,16 @@
 services:
   fileprocessingapp:
-    image: ${DOCKER_REGISTRY-}fileprocessingapp
-    build:
-      context: .
-      dockerfile: ConsoleApp/Dockerfile
+    container_name: fileprocessingapp-container
+    image: rmanimaran/fileprocessingapp:v1
+    ports:
+        - "5000:80"
+    env_file:
+        - .env
+    networks:
+        - fileprocessingapp-network
+
+networks:
+    fileprocessingapp-network:
+        driver: bridge
+  
+

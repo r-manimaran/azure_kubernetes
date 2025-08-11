@@ -3,11 +3,11 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0-alpine AS build
 WORKDIR /src
 
 # Copy project file and restore dependencies
-COPY FileProcessingApp.csproj .
+COPY ConsoleApp/FileProcessingApp.csproj .
 RUN dotnet restore --runtime linux-x64
 
 # Copy source code and build
-COPY . .
+COPY ConsoleApp/ .
 RUN dotnet publish FileProcessingApp.csproj -c Release -o /app/publish \
     --runtime linux-x64 \
     --self-contained false \
