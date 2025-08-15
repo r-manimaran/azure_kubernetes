@@ -87,7 +87,7 @@ This allows Kubernetes to pull images from your Azure Container Registry:
 kubectl create secret docker-registry acr-secret \
   --docker-server=maranacr.azurecr.io \
   --docker-username=ea37d837-46bf-471c-8731-4a9131c0342d \
-  --docker-password=y5n8Q~wwBBm5F1scugxCvaCiCPj0PT1WrSzB-aAQ \
+  --docker-password=passwordhere \
   -n fileprocessingapp
 ```
 

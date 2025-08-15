@@ -485,3 +485,7 @@ $RECYCLE.BIN/
 # K8s Secrets file
 secrets.yaml
 *.secret.yaml
+
+.env
+.env.local
+.env.docker
