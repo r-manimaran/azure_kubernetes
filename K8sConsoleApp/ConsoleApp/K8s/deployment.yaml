@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fileprocessingapp
+  annotations:
+    kubernetes.io/change-cause: "Initial deployment of fileprocessingapp"
+  labels:
+    app: fileprocessingapp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: fileprocessingapp
+  template:
+    metadata:
+      labels:
+        app: fileprocessingapp
+    spec:
+      imagePullSecrets:
+      - name: acr-secret
+      containers:
+      - name: fileprocessingapp
+        image: maranacr.azurecr.io/fileprocessingapp:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        env:
+        - name: KeyVaultUrl
+          valueFrom:
+            configMapKeyRef:
+              name: fileprocessingapp-config
+              key: KeyVaultUrl
+        - name: AZURE_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: azure-credentials
+              key: AZURE_CLIENT_ID
+        - name: AZURE_TENANT_ID
+          valueFrom:
+            secretKeyRef:
+              name: azure-credentials
+              key: AZURE_TENANT_ID
+        - name: AZURE_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: azure-credentials
+              key: AZURE_CLIENT_SECRET

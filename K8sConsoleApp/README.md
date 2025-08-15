@@ -126,7 +126,14 @@ docker-compose up -d
 
 ## Push image to Azure Container Registry(ACR)
 To push your Docker image to Azure Container Registry (ACR), follow these steps:
- 
+```bash
+.\build_and_push.ps1
+```
+
+- This PowerShell script will build your Docker image and push it to your ACR instance.
+- Make sure you have the Azure CLI installed and logged in to your Azure account.
+
+![Image Running from ACR](image-6.png)
 
 ## Alternative: Using Azure Portal
 
