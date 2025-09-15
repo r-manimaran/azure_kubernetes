@@ -1,0 +1,9 @@
+apiVersion: keda.sh/v1alpha1
+kind: TriggerAuthentication
+metadata:
+    name: azure-queue-auth
+spec:
+    secretTargetRef:
+    - parameter: connection
+      name: azure-storage-secret
+      key: azurewebjobsstorage

@@ -1,0 +1,18 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: order-processor-scaler
+spec:
+    scaleTargetRef:
+      name: order-processor-keda
+    minReplicaCount: 0
+    maxReplicaCount: 5
+    triggers:
+      - type: azure-queue
+        metadata:
+          queueName: orders
+          queueLength: "2"
+        authenticationRef:
+          name: azure-queue-auth
+      
+    

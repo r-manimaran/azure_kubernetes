@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: order-processor-keda
+    namespace: orderqueueprocessingapp
+    labels:
+      app: order-processor-keda
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: order-processor-keda
+    template:
+        metadata:
+            labels:
+                app: order-processor-keda
+        spec:
+            containers:
+            - name: order-processor-keda
+              image: rmanimaran/orderqueueprocessingapp:v2
+              imagePullPolicy: Always
+              ports:
+              - containerPort: 8080
+              env:
+              - name: AzureWebJobsStorage
+                valueFrom: 
+                  secretKeyRef:
+                    name: azure-storage-secret
+                    key: azurewebjobsstorage
+              - name: FUNCTIONS_WORKER_RUNTIME
+                value: "dotnet-isolated"
+              resources:
+                requests:
+                    memory: "128Mi"
+                    cpu: "100m"
+                limits:
+                    memory: "512Mi"
+                    cpu: "500m"
+              livenessProbe:
+                httpGet:
+                  path: /health
+                  port: 8080
+                initialDelaySeconds: 30                
+              readinessProbe:
+                httpGet:
+                  path: /health
+                  port: 8080
+                initialDelaySeconds: 5
+              securityContext:
+                runAsNonRoot: true
+                runAsUser: 10000
+                
+
+
+              
+    

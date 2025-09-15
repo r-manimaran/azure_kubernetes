@@ -16,9 +16,14 @@ public class OrderFunction
     }
 
     [Function(nameof(OrderFunction))]
-    public void Run([QueueTrigger("orders", Connection = "AzureWebJobsStorage")] QueueMessage message)
+    public async Task Run([QueueTrigger("orders", Connection = "AzureWebJobsStorage")] QueueMessage message)
     {
+        _logger.LogInformation("Task started at: {time}", DateTime.Now);
+         await Task.Delay(20000); // Introduce some delay before processing the Queue message.
+        _logger.LogInformation("Task started after delay at: {time}", DateTime.Now);
+
         _logger.LogInformation("C# Queue trigger function processed: {messageText}", message.MessageText);
+        
         // Processing the OrderEvent message
         var orderEventJson = message.MessageText;
         // deserialize the JSON and process the order

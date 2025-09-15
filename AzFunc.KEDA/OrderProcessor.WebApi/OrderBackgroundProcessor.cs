@@ -32,7 +32,7 @@ public class OrderBackgroundProcessor : BackgroundService
               .RuleFor(i => i.Name, f => f.Commerce.ProductName())
               .RuleFor(i => i.Quantity, f => f.Random.Int(1, 10))
               .RuleFor(i => i.Price, f => decimal.Parse(f.Commerce.Price(1, 100)))
-              .Generate(1);
+              .Generate(Random.Shared.Next(1, 10));
 
             decimal total =items.Sum(i=>i.Price * i .Quantity);
             var newOrderEvent = new OrderEvent
@@ -45,10 +45,13 @@ public class OrderBackgroundProcessor : BackgroundService
                 Status = "Pending"
             };
             await _queueClient.CreateIfNotExistsAsync();
+
             await _queueClient.SendMessageAsync(System.Text.Json.JsonSerializer.Serialize(newOrderEvent));
+            
             _logger.LogInformation($"Order {newOrderEvent.OrderId} created");
-            // Delay for 15seconds
-            Task.Delay(TimeSpan.FromSeconds(15), stoppingToken).Wait(stoppingToken);
+            
+            // Delay for 500ms
+            Task.Delay(500, stoppingToken).Wait(stoppingToken);
         }        
     }
 }
