@@ -251,7 +251,7 @@ helm uninstall keda -n keda
 # Delete KEDA namespace
 kubectl delete namespace keda
 ```
-
+![alt text](image-5.png)
 **If installed via kubectl:**
 ```bash
 # Remove KEDA installation
