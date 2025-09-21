@@ -2,6 +2,8 @@
 
 This project demonstrates how to build and deploy Azure Functions that automatically scale based on Azure Storage Queue messages using KEDA (Kubernetes Event-Driven Autoscaler).
 
+![Architecture](image-6.png)
+
 ## 📋 What This Project Does
 
 - **Order Processing System**: Creates order events using a background service
