@@ -1,0 +1,15 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: graceful-worker
+spec:
+    replicas: {{ .Values.replicaCount }}
+    selector:
+        matchLabels:
+            app: graceful-worker
+    template:
+        metadata:
+            labels:
+                app: graceful-worker
+        spec:
+            serviceAccountName: graceful-worker-sa

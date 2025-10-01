@@ -1,0 +1,9 @@
+{{- if eq .Values.environment "local" }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: local-queue-secret
+data:
+    QueueConnectionString: "<connection-string-here"
+
+{{- end}}

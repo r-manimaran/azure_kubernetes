@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+    name: gracefulshutdown
+    labels:
+        name: gracefulshutdown
+        environment: development

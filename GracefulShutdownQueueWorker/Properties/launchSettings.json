@@ -1,0 +1,16 @@
+{
+  "profiles": {
+    "GracefulShutdownQueueWorker": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development",
+        "AzureWebJobsStorage": "QueueConnectionStringHere"
+      },
+      "dotnetRunMessages": true
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  },
+  "$schema": "https://json.schemastore.org/launchsettings.json"
+}

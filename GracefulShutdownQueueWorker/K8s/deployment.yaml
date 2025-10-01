@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: graceful-queue-worker
+    namespace: gracefulshutdown
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: graceful-queue-worker
+    template:
+        metadata:
+            labels:
+                app: graceful-queue-worker
+        spec:
+            containers:
+                - name: graceful-queue-worker
+                  image: rmanimaran/graceful-queue-worker:latest
+                  imagePullPolicy: Always
+                  env:
+                      - name: AzureWebJobsStorage
+                        valueFrom: 
+                            secretKeyRef:
+                                name: storage-secret
+                                key: queue-connection
+                      - name: LOG_PATH
+                        value: /app/logs/worker-.log
+                  volumeMounts:
+                      - name: logs-volume
+                        mountPath: /app/logs            
+                  lifecycle:
+                      preStop:
+                          exec:
+                              command: ["sh", "-c", "echo 'Prestop hook triggered'; sleep 5"]
+            terminationGracePeriodSeconds: 30
+            volumes:
+                - name: logs-volume
+                  persistentVolumeClaim:
+                      claimName: logs-pvc
+                  
+                  

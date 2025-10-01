@@ -1,0 +1,13 @@
+{{- if and .Values.logs.enabled (eq .Values.environment "aks") }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+    name: graceful-worker-logs
+spec:
+    accessModes:
+        - ReadWriteMany
+    resources:
+        requests:
+            storage: {{ .Values.logs.size }}
+    storageClassName: {{ .Values.logs.storageClass }}
+{{- end }}

@@ -1,0 +1,19 @@
+image:
+  repository: rmanimaran/graceful
+  tag: latest
+  pullPolicy: IfNotPresent
+
+replicaCount: 1
+
+environment: aks # Options : aks | local
+
+# Key Vault CSI secret name
+KeyVault:
+  name: marankv
+  secretName: queue-connection
+
+logs:
+  enabled: true
+  storageClass: azurefile-csi  # set to "" for local docker-desktop
+  size: 1Gi
+  hostPath: /mnt/c/worker-logs # used if environment=local
